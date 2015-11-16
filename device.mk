@@ -19,6 +19,12 @@ SOMC_PLATFORM := shinano
 DEVICE_PACKAGE_OVERLAYS += \
     device/sony/shinano/overlay
 
+$(call inherit-product-if-exists, vendor/cm/config/common_full.mk)
+
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+SEC := qcom
+endif
+
 PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/init.recovery.shinano.rc:root/init.recovery.shinano.rc \
     $(SONY_ROOT)/init.shinano.rc:root/init.shinano.rc \
@@ -29,7 +35,7 @@ PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/system/usr/idc/max1187x_touchscreen_0.idc:system/usr/idc/max1187x_touchscreen_0.idc \
     $(SONY_ROOT)/system/usr/idc/clearpad.idc:system/usr/idc/clearpad.idc \
     $(SONY_ROOT)/system/etc/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
-    $(SONY_ROOT)/system/etc/sec_config:system/etc/sec_config \
+    $(SONY_ROOT)/system/etc/sec_config$(SEC):system/etc/sec_config \
     $(SONY_ROOT)/system/etc/sensors_settings:system/etc/sensors_settings \
     $(SONY_ROOT)/system/etc/gps.conf:system/etc/gps.conf
 
